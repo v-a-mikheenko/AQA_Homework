@@ -1,7 +1,7 @@
 package animals;
 
 public abstract class Animal {
-    public String name;
+    private String name;
     private static int animalCount = 0;
 
     public Animal(String name) {
