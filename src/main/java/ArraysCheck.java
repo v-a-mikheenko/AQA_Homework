@@ -1,7 +1,12 @@
 public class ArraysCheck {
     public static int arrayCheck(String[][] array) throws MyArraySizeException, MyArrayDataException {
-        if (array.length != 4 || array[0].length != 4) {
+        if (array.length != 4) {
             throw new MyArraySizeException("Неправильный размер массива");
+        }
+        for (String[] strings : array) {
+            if (strings.length != 4) {
+                throw new MyArraySizeException("Неправильный размер массива");
+            }
         }
 
         int sum = 0;
