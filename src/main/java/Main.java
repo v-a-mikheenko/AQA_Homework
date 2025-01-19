@@ -21,6 +21,13 @@ public class Main {
                 {"13", "14", "15", "16"}
         };
 
+        String[][] array4 = {
+                {"1", "2", "3", "4"},
+                {"5", "6", "7", "8", "3232", "123"},
+                {"9", "10", "11", "12"},
+                {"13", "14", "15", "16"}
+        };
+
 
         try {
             int result = ArraysCheck.arrayCheck(array1);
@@ -38,6 +45,13 @@ public class Main {
 
         try {
             int result = ArraysCheck.arrayCheck(array3);
+            System.out.println("Сумма: " + result);
+        } catch (MyArraySizeException | MyArrayDataException e) {
+            System.err.println("Ошибка: " + e.getMessage());
+        }
+
+        try {
+            int result = ArraysCheck.arrayCheck(array4);
             System.out.println("Сумма: " + result);
         } catch (MyArraySizeException | MyArrayDataException e) {
             System.err.println("Ошибка: " + e.getMessage());
