@@ -29,10 +29,18 @@ public class Main {
             telephoneDirectory.add("Леонов", "+79998887711");
             telephoneDirectory.add("Сидоров", "+79998887700");
 
+            telephoneDirectory.add("Ivanov", "+12345678900");
+            telephoneDirectory.add("Ivanov", "+12345678900");
+            telephoneDirectory.add("Petrov", "+12345678900");
+
             System.out.println("Номера Иванова: " + telephoneDirectory.get("Иванов"));
             System.out.println("Номера Петрова: " + telephoneDirectory.get("Петров"));
             System.out.println("Номера Сидорова: " + telephoneDirectory.get("Сидоров"));
             System.out.println("Номера Леонова: " + telephoneDirectory.get("Леонов"));
+
+            System.out.println("Number Ivanov: " + telephoneDirectory.get("Ivanov"));
+            System.out.println("Number Petrov: " + telephoneDirectory.get("Petrov"));
+
 
         }
     }
