@@ -7,26 +7,24 @@ public class FactorialTest {
 
     @Test
     public void testZero() {
-        assertEquals(Main.getFactorial(0), 1);
+        assertEquals(FactorialCalculator.getFactorial(0), 1);
     }
 
     @DataProvider(name = "positiveValues")
     public Object[][] positiveValues() {
         return new Object[][]{
-                {0, 1},
                 {1, 1},
                 {2, 2},
-                {3, 6},
-                {4, 24},
                 {5, 120},
-                {11, 39916800},
-                {12, 479001600}
+                {12, 479001600},
+                {19, 121645100408832000L},
+                {20, 2432902008176640000L}
         };
     }
 
     @Test(dataProvider = "positiveValues")
-    public void testPositiveValues(int input, int expected) {
-        int result = Main.getFactorial(input);
+    public void testPositiveValues(int input, long expected) {
+        long result = FactorialCalculator.getFactorial(input);
         assertEquals(result, expected);
     }
 
@@ -34,37 +32,27 @@ public class FactorialTest {
             expectedExceptionsMessageRegExp = "Число должно быть неотрицательным")
     public void testNegativeNumber() {
         int input = -1;
-        Main.getFactorial(input);
+        FactorialCalculator.getFactorial(input);
     }
 
     @DataProvider(name = "GrateIntValues")
     public Object[][] GrateIntValues() {
         return new Object[][]{
-                {13},
-                {14},
-                {15}
+                {21},
+                {22},
+                {23}
         };
     }
 
     @Test(dataProvider = "GrateIntValues",
             expectedExceptions = ArithmeticException.class,
-            expectedExceptionsMessageRegExp = "Слишом большой результат расчета для типа данных int")
+            expectedExceptionsMessageRegExp = "Слишком большой результат расчета для типа данных long")
     public void GrateInt(int input) {
-        Main.getFactorial(input);
-    }
-
-    @DataProvider(name = "wrongType")
-    public Object[] wrongType() {
-        return new Object[]{"five", true, 5.5};
-    }
-
-    @Test(dataProvider = "wrongType", expectedExceptions = ClassCastException.class)
-    public void testWrongType(Object input) {
-        Main.getFactorial((int) input);
+        FactorialCalculator.getFactorial(input);
     }
 
     @Test(expectedExceptions = NullPointerException.class)
     public void testNullInput() {
-        Main.getFactorial((Integer) null);
+        FactorialCalculator.getFactorial((Integer) null);
     }
 }
