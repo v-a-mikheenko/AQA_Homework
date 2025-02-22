@@ -3,21 +3,24 @@ import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import java.time.Duration;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class TopUpTests {
 
-    private WebDriver driver;
-    private HomePage homePage;
+    private static WebDriver driver;
+    private static HomePage homePage;
 
 
-    @BeforeEach
-    public void setUp() {
+    @BeforeAll
+    public static void setUp() {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         driver.get("https://mts.by");
 
         homePage = new HomePage(driver);
@@ -27,6 +30,7 @@ public class TopUpTests {
 
 
     @Test
+    @Order(1)
     public void testTopUpOnlineBlockTitle() {
         String expectedTitle = "Онлайн пополнение\nбез комиссии";
         String actualTitle = homePage.getTopUpOnlineBlockTitleText();
@@ -36,11 +40,13 @@ public class TopUpTests {
 
 
     @Test
+    @Order(2)
     public void testEachPayLogoIsDisplayed() {
         homePage.checkEachPayLogoDisplayed();
     }
 
     @Test
+    @Order(4)
     public void testServiceLink() {
         String expectedLink = "https://www.mts.by/help/poryadok-oplaty-i-bezopasnost-internet-platezhey/";
         String linkHref = homePage.getServiceLinkHrefOnlineReplenishment();
@@ -53,14 +59,17 @@ public class TopUpTests {
 
 
     @Test
+    @Order(3)
     public void testOnlineRecharge() {
         homePage.fillFormAndClickContinue("297777777", "10");
         assertTrue(homePage.isPaymentFrameDisplayed(), "Фрейм не открылся после нажатия кнопки «Продолжить»");
+        homePage.switchToPayIframeAndClose();
+        driver.switchTo().defaultContent();
     }
 
 
-    @AfterEach
-    public void tearDown() {
+    @AfterAll
+    public static void tearDown() {
         if (driver != null) {
             driver.quit();
         }
