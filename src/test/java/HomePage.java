@@ -1,3 +1,4 @@
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -14,8 +15,9 @@ public class HomePage {
     private WebDriverWait wait;
 
     public HomePage(WebDriver driver) {
-        PageFactory.initElements(driver, this);
         this.driver = driver;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        PageFactory.initElements(driver, this);
     }
 
     //Принять куки
@@ -79,11 +81,11 @@ public class HomePage {
 
     //Задание 3
     public void clickServiceLinkOnlineReplenishment() {
-        serviceLink.click();
+        wait.until(ExpectedConditions.elementToBeClickable(serviceLink)).click();
     }
 
     public String getServiceLinkHrefOnlineReplenishment() {
-        return serviceLink.getAttribute("href");
+        return wait.until(ExpectedConditions.visibilityOf(serviceLink)).getAttribute("href");
     }
 
 
@@ -103,4 +105,11 @@ public class HomePage {
             return false;
         }
     }
+
+    public void switchToPayIframeAndClose(){
+        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(payFrame));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[formcontrolname=creditCard] + label")));
+        wait.until(ExpectedConditions.elementToBeClickable(closeFrameButton)).click();
+    }
+
 }
