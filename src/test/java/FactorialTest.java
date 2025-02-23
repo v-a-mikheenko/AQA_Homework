@@ -35,8 +35,8 @@ public class FactorialTest {
         FactorialCalculator.getFactorial(input);
     }
 
-    @DataProvider(name = "GrateIntValues")
-    public Object[][] GrateIntValues() {
+    @DataProvider(name = "grateIntValues")
+    public Object[][] grateIntValues() {
         return new Object[][]{
                 {21},
                 {22},
@@ -44,10 +44,10 @@ public class FactorialTest {
         };
     }
 
-    @Test(dataProvider = "GrateIntValues",
+    @Test(dataProvider = "grateIntValues",
             expectedExceptions = ArithmeticException.class,
             expectedExceptionsMessageRegExp = "Слишком большой результат расчета для типа данных long")
-    public void GrateInt(int input) {
+    public void grateInt(int input) {
         FactorialCalculator.getFactorial(input);
     }
 
