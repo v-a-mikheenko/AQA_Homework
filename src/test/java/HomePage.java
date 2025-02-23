@@ -106,7 +106,7 @@ public class HomePage {
         }
     }
 
-    public void switchToPayIframeAndClose(){
+    public void switchToPayIframeAndClose() {
         wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(payFrame));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[formcontrolname=creditCard] + label")));
         wait.until(ExpectedConditions.elementToBeClickable(closeFrameButton)).click();
