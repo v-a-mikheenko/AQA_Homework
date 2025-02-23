@@ -81,15 +81,15 @@ public class PayFrame {
         }
     }
 
-    public String getTextBePaidButton(){
+    public String getTextBePaidButton() {
         return bePaidButton.getText();
     }
 
-    public String getTextPayFrameTitle(){
+    public String getTextPayFrameTitle() {
         return payFrameTitle.getText();
     }
 
-    public String getTextPayFrameSubtitle(){
+    public String getTextPayFrameSubtitle() {
         return payFrameSubtitle.getText();
     }
 }

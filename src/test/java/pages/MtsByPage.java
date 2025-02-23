@@ -18,7 +18,7 @@ public class MtsByPage {
 
     public MtsByPage(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10)); // Укажите нужное время ожидания
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         PageFactory.initElements(driver, this);
     }
 
@@ -41,10 +41,11 @@ public class MtsByPage {
     @FindBy(xpath = "//a[text()='Подробнее о сервисе']")
     private WebElement serviceLink;
 
-    //Задание 4
+    //Заполнение Номера телефона
     @FindBy(css = "input[placeholder='Номер телефона']")
     private WebElement phoneNumberInput;
 
+    //Заполнение Суммы
     @FindBy(css = "input[placeholder='Сумма']")
     private WebElement amountInput;
 
@@ -151,66 +152,66 @@ public class MtsByPage {
         }
     }
 
-    public void switchToPayFrame(){
+    public void switchToPayFrame() {
         wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(payFrame));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[formcontrolname=creditCard] + label")));
     }
 
-    public void closePayFrameAndSwitchToDefaultContent(){
+    public void closePayFrameAndSwitchToDefaultContent() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//svg-icon[@class='header__close-icon']")));
         wait.until(ExpectedConditions.elementToBeClickable(closeFrameButton)).click();
         driver.switchTo().defaultContent();
     }
 
     //Получение текста плейсхолдеров Услуги связи
-    public String getConnectionPhonePlaceholder(){
+    public String getConnectionPhonePlaceholder() {
         return connectionPhone.getAttribute("placeholder");
     }
 
-    public String getConnectionSumPlaceholder(){
+    public String getConnectionSumPlaceholder() {
         return connectionSum.getAttribute("placeholder");
     }
 
-    public String getConnectionEmailPlaceholder(){
+    public String getConnectionEmailPlaceholder() {
         return connectionEmail.getAttribute("placeholder");
     }
 
     //Получение текста плейсхолдеров Домашний интернет
-    public String getInternetPhonePlaceholder(){
+    public String getInternetPhonePlaceholder() {
         return internetPhone.getAttribute("placeholder");
     }
 
-    public String getInternetSumPlaceholder(){
+    public String getInternetSumPlaceholder() {
         return internetSum.getAttribute("placeholder");
     }
 
-    public String getInternetEmailPlaceholder(){
+    public String getInternetEmailPlaceholder() {
         return internetEmail.getAttribute("placeholder");
     }
 
     //Получение текста плейсхолдеров Рассрочка
-    public String getInstalmentScorePlaceholder(){
+    public String getInstalmentScorePlaceholder() {
         return instalmentScore.getAttribute("placeholder");
     }
 
-    public String getInstalmentSumPlaceholder(){
+    public String getInstalmentSumPlaceholder() {
         return instalmentSum.getAttribute("placeholder");
     }
 
-    public String getInstalmentEmailPlaceholder(){
+    public String getInstalmentEmailPlaceholder() {
         return instalmentEmail.getAttribute("placeholder");
     }
 
     //Получение текста плейсхолдеров Задолженность
-    public String getArrearsScorePlaceholder(){
+    public String getArrearsScorePlaceholder() {
         return arrearsScore.getAttribute("placeholder");
     }
 
-    public String getArrearsSumPlaceholder(){
+    public String getArrearsSumPlaceholder() {
         return arrearsSum.getAttribute("placeholder");
     }
 
-    public String getArrearsEmailPlaceholder(){
+    public String getArrearsEmailPlaceholder() {
         return arrearsEmail.getAttribute("placeholder");
     }
 }

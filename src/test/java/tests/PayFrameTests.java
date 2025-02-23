@@ -47,9 +47,9 @@ public class PayFrameTests {
             "2, Срок действия",
             "3, CVC",
             "4, Имя держателя (как на карте)"})
-    public void testPlaceholdersPayFrame(int i, String expectedPlaceholder){
+    public void testPlaceholdersPayFrame(int i, String expectedPlaceholder) {
         String actualPlaceholder = "";
-        switch (i){
+        switch (i) {
             case (1):
                 actualPlaceholder = payFrame.getCardNumberPlaceholder();
                 break;
@@ -72,7 +72,7 @@ public class PayFrameTests {
     }
 
     @Test
-    public void testPayFrameSumEqualsBePaidButton(){
+    public void testPayFrameSumEqualsBePaidButton() {
         assertEquals("Оплатить " + SUM + " BYN", payFrame.getTextBePaidButton());
     }
 

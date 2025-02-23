@@ -81,9 +81,9 @@ public class MtsByOnlinePaymentTests {
             "1, Номер телефона",
             "2, Сумма",
             "3, E-mail для отправки чека"})
-    public void testConnectionPlaceholders(int i, String expectedPlaceholder){
+    public void testConnectionPlaceholders(int i, String expectedPlaceholder) {
         String actualPlaceholder = "";
-        switch (i){
+        switch (i) {
             case (1):
                 actualPlaceholder = mtsByPage.getConnectionPhonePlaceholder();
                 break;
@@ -103,9 +103,9 @@ public class MtsByOnlinePaymentTests {
             "1, Номер абонента",
             "2, Сумма",
             "3, E-mail для отправки чека"})
-    public void testInternetPlaceholders(int i, String expectedPlaceholder){
+    public void testInternetPlaceholders(int i, String expectedPlaceholder) {
         String actualPlaceholder = "";
-        switch (i){
+        switch (i) {
             case (1):
                 actualPlaceholder = mtsByPage.getInternetPhonePlaceholder();
                 break;
@@ -125,9 +125,9 @@ public class MtsByOnlinePaymentTests {
             "1, Номер счета на 44",
             "2, Сумма",
             "3, E-mail для отправки чека"})
-    public void testInstalmentPlaceholders(int i, String expectedPlaceholder){
+    public void testInstalmentPlaceholders(int i, String expectedPlaceholder) {
         String actualPlaceholder = "";
-        switch (i){
+        switch (i) {
             case (1):
                 actualPlaceholder = mtsByPage.getInstalmentScorePlaceholder();
                 break;
@@ -147,9 +147,9 @@ public class MtsByOnlinePaymentTests {
             "1, Номер счета на 2073",
             "2, Сумма",
             "3, E-mail для отправки чека"})
-    public void testArrearsPlaceholders(int i, String expectedPlaceholder){
+    public void testArrearsPlaceholders(int i, String expectedPlaceholder) {
         String actualPlaceholder = "";
-        switch (i){
+        switch (i) {
             case (1):
                 actualPlaceholder = mtsByPage.getArrearsScorePlaceholder();
                 break;
