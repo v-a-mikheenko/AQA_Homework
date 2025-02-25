@@ -1,4 +1,3 @@
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -35,9 +34,12 @@ public class HomePage {
     @FindBy(xpath = "//section[@class='pay']//img")
     private List<WebElement> payLogos;
 
-    //Заданеи 3
+    //Задание 3
     @FindBy(xpath = "//a[text()='Подробнее о сервисе']")
     private WebElement serviceLink;
+
+    @FindBy(xpath = "//*[contains(text(), 'Оплата банковской картой')]")
+    private WebElement serviceTitle;
 
     //Задание 4
     @FindBy(css = "input[placeholder='Номер телефона']")
@@ -52,8 +54,6 @@ public class HomePage {
     @FindBy(css = "iframe.bepaid-iframe")
     private WebElement payFrame;
 
-    @FindBy(xpath = "//svg-icon[@class='header__close-icon']")
-    private WebElement closeFrameButton;
 
     //Принять куки
     public void acceptCookies() {
@@ -68,15 +68,13 @@ public class HomePage {
     }
 
     //Задание 2
-    public void checkEachPayLogoDisplayed() {
-        for (WebElement logo : payLogos) {
-            String src = logo.getAttribute("src");
-            if (logo.isDisplayed()) {
-                System.out.println("Логотип с src='" + src + "' отображается.");
-            } else {
-                System.out.println("Логотип с src='" + src + "' НЕ отображается.");
+    public boolean checkPayLogoIsDisplayed(String scr) {
+        for (WebElement payLogo : payLogos) {
+            if (payLogo.getAttribute("src").contains(scr)) {
+                return payLogo.isDisplayed();
             }
         }
+        return false;
     }
 
     //Задание 3
@@ -86,6 +84,10 @@ public class HomePage {
 
     public String getServiceLinkHrefOnlineReplenishment() {
         return wait.until(ExpectedConditions.visibilityOf(serviceLink)).getAttribute("href");
+    }
+
+    public String getServiceTitle() {
+        return serviceTitle.getText();
     }
 
 
@@ -104,12 +106,6 @@ public class HomePage {
         } catch (Exception e) {
             return false;
         }
-    }
-
-    public void switchToPayIframeAndClose() {
-        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(payFrame));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[formcontrolname=creditCard] + label")));
-        wait.until(ExpectedConditions.elementToBeClickable(closeFrameButton)).click();
     }
 
 }
