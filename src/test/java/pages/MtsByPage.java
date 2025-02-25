@@ -41,11 +41,14 @@ public class MtsByPage {
     @FindBy(xpath = "//a[text()='Подробнее о сервисе']")
     private WebElement serviceLink;
 
-    //Заполнение Номера телефона
+    //Заголовок "Подробнее о сервисе"
+    @FindBy(xpath = "//*[contains(text(), 'Оплата банковской картой')]")
+    private WebElement serviceTitle;
+
+    //Задание 4
     @FindBy(css = "input[placeholder='Номер телефона']")
     private WebElement phoneNumberInput;
 
-    //Заполнение Суммы
     @FindBy(css = "input[placeholder='Сумма']")
     private WebElement amountInput;
 
@@ -115,15 +118,13 @@ public class MtsByPage {
     }
 
     //Проверка отображения логотипов платежных систем "Услуги связи"
-    public void checkEachPayLogoDisplayed() {
-        for (WebElement logo : payLogos) {
-            String src = logo.getAttribute("src");
-            if (logo.isDisplayed()) {
-                System.out.println("Логотип с src='" + src + "' отображается.");
-            } else {
-                System.out.println("Логотип с src='" + src + "' НЕ отображается.");
+    public boolean checkPayLogoIsDisplayed(String scr) {
+        for (WebElement payLogo : payLogos) {
+            if (payLogo.getAttribute("src").contains(scr)) {
+                return payLogo.isDisplayed();
             }
         }
+        return false;
     }
 
     //Проверка работы ссылки "Подробнее о сервисе"
@@ -135,7 +136,11 @@ public class MtsByPage {
         return wait.until(ExpectedConditions.visibilityOf(serviceLink)).getAttribute("href");
     }
 
-    //Задание 4
+    public String getServiceTitle() {
+        return wait.until(ExpectedConditions.visibilityOf(serviceTitle)).getText();
+    }
+
+    //Заполнение полей: "Номер телефона", "Сумма" и нажатие кнопки "Продолжить"
     public void fillFormAndClickContinue(String phoneNumber, String amount) {
         phoneNumberInput.sendKeys(phoneNumber);
         amountInput.sendKeys(amount);

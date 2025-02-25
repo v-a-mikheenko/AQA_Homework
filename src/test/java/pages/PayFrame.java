@@ -1,11 +1,9 @@
 package pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
@@ -17,7 +15,7 @@ public class PayFrame {
 
     public PayFrame(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10)); // Укажите нужное время ожидания
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         PageFactory.initElements(driver, this);
     }
 
@@ -49,7 +47,7 @@ public class PayFrame {
 
     //Иконки платежных систем в Фрейме
     @FindBy(xpath = "//div[@class='icons-container ng-tns-c46-1']//img")
-    private List<WebElement> paymentIcons;
+    private List<WebElement> payFramePayLogos;
 
 
     // Методы для проверки плейсхолдеров
@@ -70,15 +68,13 @@ public class PayFrame {
     }
 
     // Метод для проверки отображения картинок в Фрейме оплаты
-    public void arePaymentIconsDisplayed() {
-        for (WebElement logo : paymentIcons) {
-            String src = logo.getAttribute("src");
-            if (logo.isDisplayed() || logo.getAttribute("style").contains("opacity: 0")) {
-                System.out.println("Логотип с src='" + src + "' отображается.");
-            } else {
-                System.out.println("Логотип с src='" + src + "' НЕ отображается.");
+    public boolean checkPayFrameLogoIsDisplayed(String scr) {
+        for (WebElement payLogo : payFramePayLogos) {
+            if (payLogo.getAttribute("src").contains(scr)) {
+                return payLogo.isDisplayed() || payLogo.getAttribute("style").contains("opacity: 0");
             }
         }
+        return false;
     }
 
     public String getTextBePaidButton() {

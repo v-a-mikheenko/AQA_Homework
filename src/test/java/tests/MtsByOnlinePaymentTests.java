@@ -4,6 +4,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import pages.MtsByPage;
@@ -13,7 +14,7 @@ import java.time.Duration;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+
 public class MtsByOnlinePaymentTests {
 
     private static WebDriver driver;
@@ -37,7 +38,6 @@ public class MtsByOnlinePaymentTests {
 
 
     @Test
-    @Order(1)
     public void testTopUpOnlineBlockTitle() {
         String expectedTitle = "Онлайн пополнение\nбез комиссии";
         String actualTitle = mtsByPage.getTopUpOnlineBlockTitleText();
@@ -45,28 +45,41 @@ public class MtsByOnlinePaymentTests {
         assertEquals(expectedTitle, actualTitle, message);
     }
 
-
     @Test
-    @Order(2)
     public void testEachPayLogoIsDisplayed() {
-        mtsByPage.checkEachPayLogoDisplayed();
+        String[] logos = {"visa.svg", "visa-verified.svg", "mastercard.svg", "mastercard-secure.svg", "belkart.svg"};
+
+        for (String src : logos) {
+            try {
+                assertTrue(mtsByPage.checkPayLogoIsDisplayed(src), "Логотип " + src + " не отображается");
+                System.out.println("Логотип " + src + " отображается");
+            } catch (NoSuchElementException e) {
+                assertTrue(false, "Логотип " + src + " не найден");
+            }
+        }
     }
 
     @Test
-    @Order(8)
     public void testServiceLink() {
         String expectedLink = "https://www.mts.by/help/poryadok-oplaty-i-bezopasnost-internet-platezhey/";
+        String expectedTitleText = "Оплата банковской картой";
+
         String linkHref = mtsByPage.getServiceLinkHrefOnlineReplenishment();
-        assertEquals(expectedLink, linkHref);
+        assertEquals(expectedLink, linkHref, "Ссылка на странице не соответствует ожидаемой");
 
         mtsByPage.clickServiceLinkOnlineReplenishment();
+
         String currentUrl = driver.getCurrentUrl();
-        assertEquals(expectedLink, currentUrl);
+        assertEquals(expectedLink, currentUrl, "Текущий URL не соответствует ожидаемому");
+
+        String actualTitleText = mtsByPage.getServiceTitle();
+        assertEquals(expectedTitleText, actualTitleText, "Заголовок на странице не соответствует ожидаемому");
+
+        driver.navigate().back();
     }
 
 
     @Test
-    @Order(7)
     public void testOnlineRecharge() {
         mtsByPage.fillFormAndClickContinue(PHONE_NUMBER, SUM);
         assertTrue(mtsByPage.isPayFrameDisplayed(), "Фрейм не открылся после нажатия кнопки «Продолжить»");
@@ -76,14 +89,13 @@ public class MtsByOnlinePaymentTests {
     }
 
     @ParameterizedTest
-    @Order(3)
     @CsvSource({
             "1, Номер телефона",
             "2, Сумма",
             "3, E-mail для отправки чека"})
-    public void testConnectionPlaceholders(int i, String expectedPlaceholder) {
+    public void testConnectionPlaceholders(int i, String expectedPlaceholder){
         String actualPlaceholder = "";
-        switch (i) {
+        switch (i){
             case (1):
                 actualPlaceholder = mtsByPage.getConnectionPhonePlaceholder();
                 break;
@@ -98,14 +110,13 @@ public class MtsByOnlinePaymentTests {
     }
 
     @ParameterizedTest
-    @Order(4)
     @CsvSource({
             "1, Номер абонента",
             "2, Сумма",
             "3, E-mail для отправки чека"})
-    public void testInternetPlaceholders(int i, String expectedPlaceholder) {
+    public void testInternetPlaceholders(int i, String expectedPlaceholder){
         String actualPlaceholder = "";
-        switch (i) {
+        switch (i){
             case (1):
                 actualPlaceholder = mtsByPage.getInternetPhonePlaceholder();
                 break;
@@ -120,14 +131,13 @@ public class MtsByOnlinePaymentTests {
     }
 
     @ParameterizedTest
-    @Order(5)
     @CsvSource({
             "1, Номер счета на 44",
             "2, Сумма",
             "3, E-mail для отправки чека"})
-    public void testInstalmentPlaceholders(int i, String expectedPlaceholder) {
+    public void testInstalmentPlaceholders(int i, String expectedPlaceholder){
         String actualPlaceholder = "";
-        switch (i) {
+        switch (i){
             case (1):
                 actualPlaceholder = mtsByPage.getInstalmentScorePlaceholder();
                 break;
@@ -142,14 +152,13 @@ public class MtsByOnlinePaymentTests {
     }
 
     @ParameterizedTest
-    @Order(6)
     @CsvSource({
             "1, Номер счета на 2073",
             "2, Сумма",
             "3, E-mail для отправки чека"})
-    public void testArrearsPlaceholders(int i, String expectedPlaceholder) {
+    public void testArrearsPlaceholders(int i, String expectedPlaceholder){
         String actualPlaceholder = "";
-        switch (i) {
+        switch (i){
             case (1):
                 actualPlaceholder = mtsByPage.getArrearsScorePlaceholder();
                 break;

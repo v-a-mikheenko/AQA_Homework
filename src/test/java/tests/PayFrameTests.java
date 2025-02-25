@@ -6,6 +6,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import pages.MtsByPage;
@@ -14,6 +16,7 @@ import pages.PayFrame;
 import java.time.Duration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class PayFrameTests {
 
@@ -66,12 +69,19 @@ public class PayFrameTests {
         assertEquals(actualPlaceholder, expectedPlaceholder);
     }
 
-    @Test
-    public void testPayFrameEachLogoIsDisplayed() {
-        payFrame.arePaymentIconsDisplayed();
+
+    @ParameterizedTest
+    @ValueSource(strings = {"mastercard-system.svg", "visa-system.svg", "belkart-system.svg", "mir-system-ru.svg", "maestro-system.svg"})
+    public void testPayFrameEachLogoIsDisplayed(String src) {
+        try {
+            assertTrue(payFrame.checkPayFrameLogoIsDisplayed(src), "Логотип " + src + " не отображается");
+            System.out.println("Логотип " + src + " отображается");
+        } catch (NoSuchElementException e) {
+            assertTrue(false, "Логотип " + src + " не найдена");
+        }
     }
 
-    @Test
+        @Test
     public void testPayFrameSumEqualsBePaidButton() {
         assertEquals("Оплатить " + SUM + " BYN", payFrame.getTextBePaidButton());
     }
