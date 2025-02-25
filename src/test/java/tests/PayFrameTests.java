@@ -77,7 +77,7 @@ public class PayFrameTests {
             assertTrue(payFrame.checkPayFrameLogoIsDisplayed(src), "Логотип " + src + " не отображается");
             System.out.println("Логотип " + src + " отображается");
         } catch (NoSuchElementException e) {
-            assertTrue(false, "Логотип " + src + " не найдена");
+            assertTrue(false, "Логотип " + src + " не найден");
         }
     }
 
