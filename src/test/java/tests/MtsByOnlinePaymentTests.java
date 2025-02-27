@@ -5,7 +5,6 @@ import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import pages.MtsByPage;
@@ -43,20 +42,14 @@ public class MtsByOnlinePaymentTests {
     public void testTopUpOnlineBlockTitle() {
         String expectedTitle = "Онлайн пополнение\nбез комиссии";
         String actualTitle = mtsByPage.getTopUpOnlineBlockTitleText();
-        String message = "Неверный заголовок блока";
-        assertEquals(expectedTitle, actualTitle, message);
+        assertEquals(expectedTitle, actualTitle, "Неверный заголовок блока");
     }
 
     @ParameterizedTest
     @DisplayName("Проверка отображения логотипов платёжных систем в блоке 'Онлайн пополнение без комиссии'")
     @ValueSource(strings = {"visa.svg", "visa-verified.svg", "mastercard.svg", "mastercard-secure.svg", "belkart.svg"})
     public void testEachPayLogoIsDisplayed(String src) {
-            try {
-                assertTrue(mtsByPage.checkPayLogoIsDisplayed(src), "Логотип " + src + " не отображается");
-                System.out.println("Логотип " + src + " отображается");
-            } catch (NoSuchElementException e) {
-                assertTrue(false, "Логотип " + src + " не найден");
-            }
+        assertTrue(mtsByPage.checkPayLogoIsDisplayed(src), "Логотип " + src + " не отображается");
     }
 
     @Test
@@ -96,9 +89,9 @@ public class MtsByOnlinePaymentTests {
             "1, Номер телефона",
             "2, Сумма",
             "3, E-mail для отправки чека"})
-    public void testConnectionPlaceholders(int i, String expectedPlaceholder){
+    public void testConnectionPlaceholders(int i, String expectedPlaceholder) {
         String actualPlaceholder = "";
-        switch (i){
+        switch (i) {
             case (1):
                 actualPlaceholder = mtsByPage.getConnectionPhonePlaceholder();
                 break;
@@ -118,9 +111,9 @@ public class MtsByOnlinePaymentTests {
             "1, Номер абонента",
             "2, Сумма",
             "3, E-mail для отправки чека"})
-    public void testInternetPlaceholders(int i, String expectedPlaceholder){
+    public void testInternetPlaceholders(int i, String expectedPlaceholder) {
         String actualPlaceholder = "";
-        switch (i){
+        switch (i) {
             case (1):
                 actualPlaceholder = mtsByPage.getInternetPhonePlaceholder();
                 break;
@@ -140,9 +133,9 @@ public class MtsByOnlinePaymentTests {
             "1, Номер счета на 44",
             "2, Сумма",
             "3, E-mail для отправки чека"})
-    public void testInstalmentPlaceholders(int i, String expectedPlaceholder){
+    public void testInstalmentPlaceholders(int i, String expectedPlaceholder) {
         String actualPlaceholder = "";
-        switch (i){
+        switch (i) {
             case (1):
                 actualPlaceholder = mtsByPage.getInstalmentScorePlaceholder();
                 break;
@@ -162,9 +155,9 @@ public class MtsByOnlinePaymentTests {
             "1, Номер счета на 2073",
             "2, Сумма",
             "3, E-mail для отправки чека"})
-    public void testArrearsPlaceholders(int i, String expectedPlaceholder){
+    public void testArrearsPlaceholders(int i, String expectedPlaceholder) {
         String actualPlaceholder = "";
-        switch (i){
+        switch (i) {
             case (1):
                 actualPlaceholder = mtsByPage.getArrearsScorePlaceholder();
                 break;

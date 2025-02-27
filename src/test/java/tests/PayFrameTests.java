@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import pages.MtsByPage;
@@ -75,12 +74,7 @@ public class PayFrameTests {
     @DisplayName("Проверка отображения логотипов платёжных систем на фрейме оплаты")
     @ValueSource(strings = {"mastercard-system.svg", "visa-system.svg", "belkart-system.svg", "mir-system-ru.svg", "maestro-system.svg"})
     public void testPayFrameEachLogoIsDisplayed(String src) {
-        try {
-            assertTrue(payFrame.checkPayFrameLogoIsDisplayed(src), "Логотип " + src + " не отображается");
-            System.out.println("Логотип " + src + " отображается");
-        } catch (NoSuchElementException e) {
-            assertTrue(false, "Логотип " + src + " не найдена");
-        }
+        assertTrue(payFrame.checkPayFrameLogoIsDisplayed(src), "Логотип " + src + " не отображается");
     }
 
 

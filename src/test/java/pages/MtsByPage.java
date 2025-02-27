@@ -195,7 +195,6 @@ public class MtsByPage {
     }
 
 
-
     @Step("Получение текста плейсхолдера 'Номер телефона' варианта услуги-'Домашний интернет'")
     public String getInternetPhonePlaceholder() {
         return internetPhone.getAttribute("placeholder");
@@ -212,7 +211,6 @@ public class MtsByPage {
     }
 
 
-
     @Step("Получение текста плейсхолдера 'Номер счета' варианта услуги-'Рассрочка'")
     public String getInstalmentScorePlaceholder() {
         return instalmentScore.getAttribute("placeholder");
@@ -227,7 +225,6 @@ public class MtsByPage {
     public String getInstalmentEmailPlaceholder() {
         return instalmentEmail.getAttribute("placeholder");
     }
-
 
 
     @Step("Получение текста плейсхолдера 'Номер счет' варианта услуги-'Задолженность'")
