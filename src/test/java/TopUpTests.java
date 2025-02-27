@@ -1,6 +1,5 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -34,8 +33,7 @@ public class TopUpTests {
     public void testTopUpOnlineBlockTitle() {
         String expectedTitle = "Онлайн пополнение\nбез комиссии";
         String actualTitle = homePage.getTopUpOnlineBlockTitleText();
-        String message = "Неверный заголовок блока";
-        assertEquals(expectedTitle, actualTitle, message);
+        assertEquals(expectedTitle, actualTitle, "Неверный заголовок блока");
     }
 
     @Test
@@ -43,12 +41,7 @@ public class TopUpTests {
         String[] logos = {"visa.svg", "visa-verified.svg", "mastercard.svg", "mastercard-secure.svg", "belkart.svg"};
 
         for (String src : logos) {
-            try {
-                assertTrue(homePage.checkPayLogoIsDisplayed(src), "Логотип " + src + " не отображается");
-                System.out.println("Логотип " + src + " отображается");
-            } catch (NoSuchElementException e) {
-                assertTrue(false, "Логотип " + src + " не найден");
-            }
+            assertTrue(homePage.checkPayLogoIsDisplayed(src), "Логотип " + src + " не отображается");
         }
     }
 
